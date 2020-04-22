@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using SocialNetworking_DAB3_handin.Data;
+using BCrypt;
 
 namespace SocialNetworking_DAB3_handin.Repository
 {
@@ -16,6 +17,9 @@ namespace SocialNetworking_DAB3_handin.Repository
         {
            try
             {
+                var hashedPw = BCrypt.Net.BCrypt.HashPassword(users.Password);
+                users.Password = hashedPw;
+
                 await db.Users.InsertOneAsync(users);
             }
             catch

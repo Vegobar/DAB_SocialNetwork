@@ -21,6 +21,7 @@ namespace SocialNetworking_DAB3_handin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Users> user = await _dataAccessProvider.GetUsers();
+
             return View(user);
         }
 
@@ -38,6 +39,13 @@ namespace SocialNetworking_DAB3_handin.Controllers
             {
                 return NotFound();
             }
+
+
+            //This is a test to see if it was possible to unhash password for users when der need to login.
+           // if(BCrypt.Net.BCrypt.Verify("mikkelerdejli", users.Password))
+            //{
+            //   return Content("Password is correct");
+            //}
 
             return View(users);
         }
