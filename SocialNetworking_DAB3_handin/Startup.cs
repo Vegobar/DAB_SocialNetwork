@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using SocialNetworking_DAB3_handin.Data;
 
 namespace SocialNetworking_DAB3_handin
 {
@@ -24,6 +26,9 @@ namespace SocialNetworking_DAB3_handin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<SocialNetworking_DAB3_handinContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SocialNetworking_DAB3_handinContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
