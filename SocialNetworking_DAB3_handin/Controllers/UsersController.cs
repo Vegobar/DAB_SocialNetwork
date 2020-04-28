@@ -42,10 +42,10 @@ namespace SocialNetworking_DAB3_handin.Controllers
 
 
             //This is a test to see if it was possible to unhash password for users when der need to login.
-           // if(BCrypt.Net.BCrypt.Verify("mikkelerdejli", users.Password))
-            //{
-            //   return Content("Password is correct");
-            //}
+            if(BCrypt.Net.BCrypt.Verify("HejLena12332", users.Password))
+            {
+               return Content("Password is correct");
+            }
 
             return View(users);
         }
