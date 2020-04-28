@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SocialNetworking_DAB3_handin.Models;
+using SocialNetworking_DAB3_handin.Repository;
+using SocialNetworking_DAB3_handin.ViewModels;
 
 namespace SocialNetworking_DAB3_handin.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUsersRepository _dataAccessProvider = new UserseRespository();
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -18,9 +22,12 @@ namespace SocialNetworking_DAB3_handin.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(User_Login user)
         {
-            return View();
+            if (user.IsLoggedIn)
+                return View();
+            else
+                return Content("Fuck af, du skal logge ind!");
         }
 
         public IActionResult Privacy()

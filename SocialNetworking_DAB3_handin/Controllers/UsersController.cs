@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetworking_DAB3_handin.Data;
 using SocialNetworking_DAB3_handin.Models;
 using SocialNetworking_DAB3_handin.Repository;
+using SocialNetworking_DAB3_handin.ViewModels;
 
 namespace SocialNetworking_DAB3_handin.Controllers
 {
@@ -48,6 +49,35 @@ namespace SocialNetworking_DAB3_handin.Controllers
             }
 
             return View(users);
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(User_Login user)
+        {
+           
+            var users = await _dataAccessProvider.GetUserByName(user);
+
+            if(users == null)
+            {
+                return Content("No Information entered in text boxes" + user.Username);
+            }
+
+            if (BCrypt.Net.BCrypt.Verify(user.Password, users.Password))
+            {
+                //Sådan man bliver redirected til posting siden.
+                //return Content("Password is correct");
+                user.IsLoggedIn = true;
+
+                return RedirectToAction("Index", "Home",user);
+            }
+
+            return Content("Your password Or Username was not found or wrong.");
         }
 
         // GET: Users/Create

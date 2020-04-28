@@ -1,4 +1,5 @@
 ﻿using SocialNetworking_DAB3_handin.Models;
+using SocialNetworking_DAB3_handin.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace SocialNetworking_DAB3_handin.Repository
         Task Delete(string id);
         Task<Users> GetUsers(string id);
         Task<IEnumerable<Users>> GetUsers();
+        Task<Users> GetUserByName(User_Login users);
     }
 }

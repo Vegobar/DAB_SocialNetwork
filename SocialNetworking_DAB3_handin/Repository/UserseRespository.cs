@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using SocialNetworking_DAB3_handin.Data;
 using BCrypt;
+using SocialNetworking_DAB3_handin.ViewModels;
 
 namespace SocialNetworking_DAB3_handin.Repository
 {
@@ -26,6 +27,20 @@ namespace SocialNetworking_DAB3_handin.Repository
             {
                 throw;
             }
+        }
+
+        public async Task<Users> GetUserByName(User_Login users)
+        {
+            try
+            {
+                FilterDefinition<Users> filter = Builders<Users>.Filter.Eq("Username", users.Username);
+                return await db.Users.Find(filter).FirstOrDefaultAsync();
+            }
+            catch
+            {
+                throw;
+            }
+
         }
 
         public async Task Delete(string id)
